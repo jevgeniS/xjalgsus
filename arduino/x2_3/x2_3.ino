@@ -70,7 +70,7 @@ volatile boolean needToMeasureVoltage=false;
 volatile boolean needToCheckPressure= false;
 
 byte checkingSeconds=0;
-boolean firstSensor=true;
+boolean leftSensor=true;
 
 // Convert normal decimal numbers to binary coded decimal
 byte decToBcd(byte val)
@@ -352,14 +352,14 @@ void checkPressure(){
   if (needToCheckPressure){
     checkingSeconds++;
     if (checkingSeconds>=T_PRESSURE_CHECK){
-      firstSensor=!firstSensor;
+      leftSensor=!leftSensor;
       checkingSeconds=0;
     }
     float pressure;
     byte n=10;
     byte ledSignal;
     boolean left;
-    if (firstSensor){
+    if (leftSensor){
       ledSignal=HIGH;
       left=true;
     }
@@ -404,12 +404,12 @@ void setup()
   conductanceCoef1=convertStoredToFloat(COEF1_ADDR);
   period=EEPROM.read(PERIOD_ADDR);
   windowPeriod=EEPROM.read(W_PERIOD_ADDR);
-  if (period<=5 || period ==255 || windowPeriod <=0 || windowPeriod>=period){
+  if (period<2 || period ==255 || windowPeriod <=0 || windowPeriod>=period){
     period = 10;
     windowPeriod=5;
   }
-  if (maxMeasurement>2 || maxMeasurement<0) maxMeasurement =0.1;
-  if (minMeasurement>2 || minMeasurement<0) maxMeasurement =1.5;
+  if (maxMeasurement>=4 || maxMeasurement<0) maxMeasurement =3.0;
+  if (minMeasurement>=4 || minMeasurement<0) minMeasurement =1.0;
   if (conductanceCoef0<0.001 || conductanceCoef0>2) conductanceCoef0=1.0;
   if (conductanceCoef1<0.001 || conductanceCoef1>2) conductanceCoef1=1.0;
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
