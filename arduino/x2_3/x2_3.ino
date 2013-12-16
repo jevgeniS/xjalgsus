@@ -407,8 +407,10 @@ void setup()
   conductanceCoef1=convertStoredToFloat(COEF1_ADDR);
   period=EEPROM.read(PERIOD_ADDR);
   windowPeriod=EEPROM.read(W_PERIOD_ADDR);
-  if (period<=5 || period ==255) period = 10;
-  if (windowPeriod <=0 || windowPeriod>=period) windowPeriod=period+5;
+  if (period<=5 || period ==255 || windowPeriod <=0 || windowPeriod>=period){
+    period = 10;
+    windowPeriod=5;
+  }
   if (maxMeasurement>2 || maxMeasurement<0) maxMeasurement =0.1;
   if (minMeasurement>2 || minMeasurement<0) maxMeasurement =1.5;
   if (conductanceCoef0<0.001 || conductanceCoef0>2) conductanceCoef0=1.0;
