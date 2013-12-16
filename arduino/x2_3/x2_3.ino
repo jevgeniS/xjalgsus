@@ -15,8 +15,8 @@
 #define LED_MIN 6
 #define LED_SENSOR 4
 #define VCC A3
-#define FSR0 5
-#define FSR1 4
+#define FSR0 4
+#define FSR1 5
 #define STAT 8
 #define R 100000
 #define MULTIPLY 5000
@@ -163,15 +163,12 @@ float convertStoredToFloat(byte addr){
   return (float)res;
 }
 
+double readLeftSensor(){
+  return getConductance(analogRead(FSR0)/1023.0)/conductanceCoef0;
+}
 
-double readSensor(byte n){
-  
-  switch (n){
-    case 0: return getConductance(analogRead(FSR0)/1023.0)/conductanceCoef0; break;
-    case 1: return getConductance(analogRead(FSR1)/1023.0)/conductanceCoef1; break;
-  }
-  //WARNING
-  return -1;
+double readRightSensor(){
+  return getConductance(analogRead(FSR1)/1023.0)/conductanceCoef0;
 }
 
 byte createFile(){
@@ -236,10 +233,10 @@ ISR(INT3_vect)
  
 
     if (isMeasurementNeeded()){
-        tempSum0+=readSensor(0);
+        tempSum0+=readLeftSensor();
         actualNumberOfMeasurements0++;
    
-        tempSum1+=readSensor(1);
+        tempSum1+=readRightSensor();
         actualNumberOfMeasurements1++;
       }
        
@@ -361,17 +358,17 @@ void checkPressure(){
     float pressure;
     byte n=10;
     byte ledSignal;
-    byte sensor;
+    boolean left;
     if (firstSensor){
       ledSignal=HIGH;
-      sensor=0;
+      left=true;
     }
     else{
       ledSignal=LOW;
-      sensor=1;
+      left=false;
     }
     for(byte i=0;i<n;i++){
-      pressure+=readSensor(sensor);
+      pressure+= left ? readLeftSensor() : readRightSensor();
     }
     pressure=pressure/n;
     digitalWrite(LED_MIN,LOW);
@@ -446,7 +443,7 @@ void loop()
         incomingByte = Serial.read();
         switch(incomingByte){
         case 'A':{
-          loadSensorValuesToPrinter(readSensor(0),readSensor(1));
+          loadSensorValuesToPrinter(readLeftSensor(),readRightSensor());
           Serial.println(Printer);
           break;}
           
@@ -605,7 +602,7 @@ void loop()
         actualNumberOfMeasurements1=0;
         
         Printer+=" ";
-        loadSensorValuesToPrinter(readSensor(0),readSensor(1));
+        loadSensorValuesToPrinter(readLeftSensor(),readRightSensor());
         myFile=SD.open(fileName,FILE_WRITE);
         if (myFile){
           
