@@ -10060,7 +10060,7 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <part name="GND8" library="SparkFun" deviceset="GND" device=""/>
 <part name="U$6" library="MCP101T-315I" deviceset="MCP101T-315I/TT" device=""/>
 <part name="+3V6" library="supply1" deviceset="+3V3" device=""/>
-<part name="C3" library="eagle-ltspice" deviceset="C" device="C0402" value="???"/>
+<part name="C3" library="eagle-ltspice" deviceset="C" device="C0402" value="100nF"/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
 <part name="GND26" library="SparkFun" deviceset="GND" device=""/>
@@ -10103,10 +10103,10 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <part name="GND35" library="supply1" deviceset="GND" device=""/>
 <part name="C7" library="rcl" deviceset="C-EU" device="C0603" value="4.7uF"/>
 <part name="GND36" library="supply1" deviceset="GND" device=""/>
-<part name="R20" library="eagle-ltspice" deviceset="R" device="R0402" value="???"/>
+<part name="R20" library="eagle-ltspice" deviceset="R" device="R0402" value="400"/>
 <part name="+3V1" library="supply1" deviceset="+3V3" device=""/>
-<part name="R22" library="eagle-ltspice" deviceset="R" device="R0402" value="???"/>
-<part name="R23" library="eagle-ltspice" deviceset="R" device="R0402" value="???"/>
+<part name="R22" library="eagle-ltspice" deviceset="R" device="R0402" value="1k"/>
+<part name="R23" library="eagle-ltspice" deviceset="R" device="R0402" value="1k"/>
 <part name="GND38" library="SparkFun" deviceset="GND" device=""/>
 <part name="P+5" library="supply1" deviceset="+5V" device=""/>
 <part name="R13" library="eagle-ltspice" deviceset="R" device="R0402" value="1k"/>

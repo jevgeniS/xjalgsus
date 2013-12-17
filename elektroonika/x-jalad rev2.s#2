@@ -10053,6 +10053,8 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <part name="C1" library="rcl" deviceset="C-EU" device="C0603" value="4.7uF"/>
 <part name="GND4" library="SparkFun" deviceset="GND" device=""/>
 <part name="GND5" library="SparkFun" deviceset="GND" device=""/>
+<part name="P+5" library="supply1" deviceset="+5V" device=""/>
+<part name="R13" library="eagle-ltspice" deviceset="R" device="R0402" value="1k"/>
 <part name="GND6" library="SparkFun" deviceset="GND" device=""/>
 <part name="2CH_IDEAL_DIODES" library="2_ch_ideal_diode" deviceset="LTC4413EDD-1" device=""/>
 <part name="P+6" library="supply1" deviceset="+5V" device=""/>
@@ -10060,7 +10062,7 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <part name="GND8" library="SparkFun" deviceset="GND" device=""/>
 <part name="U$6" library="MCP101T-315I" deviceset="MCP101T-315I/TT" device=""/>
 <part name="+3V6" library="supply1" deviceset="+3V3" device=""/>
-<part name="C3" library="eagle-ltspice" deviceset="C" device="C0402" value="???"/>
+<part name="C3" library="eagle-ltspice" deviceset="C" device="C0402" value="100nF"/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
 <part name="GND26" library="SparkFun" deviceset="GND" device=""/>
@@ -10103,13 +10105,7 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <part name="GND35" library="supply1" deviceset="GND" device=""/>
 <part name="C7" library="rcl" deviceset="C-EU" device="C0603" value="4.7uF"/>
 <part name="GND36" library="supply1" deviceset="GND" device=""/>
-<part name="R20" library="eagle-ltspice" deviceset="R" device="R0402" value="???"/>
-<part name="+3V1" library="supply1" deviceset="+3V3" device=""/>
-<part name="R22" library="eagle-ltspice" deviceset="R" device="R0402" value="???"/>
-<part name="R23" library="eagle-ltspice" deviceset="R" device="R0402" value="???"/>
-<part name="GND38" library="SparkFun" deviceset="GND" device=""/>
-<part name="P+5" library="supply1" deviceset="+5V" device=""/>
-<part name="R13" library="eagle-ltspice" deviceset="R" device="R0402" value="1k"/>
+<part name="R20" library="eagle-ltspice" deviceset="R" device="R0402" value="1k"/>
 </parts>
 <sheets>
 <sheet>
@@ -10181,15 +10177,17 @@ uC Vcc and GND</text>
 <instance part="C1" gate="G$1" x="-88.9" y="114.3" rot="R180"/>
 <instance part="GND4" gate="1" x="-88.9" y="109.22"/>
 <instance part="GND5" gate="1" x="-81.28" y="124.46"/>
+<instance part="P+5" gate="1" x="-35.56" y="116.84"/>
+<instance part="R13" gate="G$1" x="-35.56" y="106.68" rot="R270"/>
 <instance part="GND6" gate="1" x="-58.42" y="99.06"/>
 <instance part="2CH_IDEAL_DIODES" gate="G$1" x="-2.54" y="63.5"/>
 <instance part="P+6" gate="1" x="-38.1" y="63.5"/>
 <instance part="GND7" gate="1" x="7.62" y="45.72"/>
-<instance part="GND8" gate="1" x="-20.32" y="60.96"/>
+<instance part="GND8" gate="1" x="-15.24" y="66.04" rot="R270"/>
 <instance part="U$6" gate="G$1" x="-76.2" y="63.5"/>
-<instance part="+3V6" gate="G$1" x="-104.14" y="71.12"/>
-<instance part="C3" gate="G$1" x="-93.98" y="55.88" rot="R180"/>
-<instance part="GND12" gate="1" x="-93.98" y="50.8"/>
+<instance part="+3V6" gate="G$1" x="-91.44" y="71.12"/>
+<instance part="C3" gate="G$1" x="-91.44" y="58.42" rot="R180"/>
+<instance part="GND12" gate="1" x="-91.44" y="53.34"/>
 <instance part="GND13" gate="1" x="-53.34" y="58.42"/>
 <instance part="GND26" gate="1" x="30.48" y="50.8"/>
 <instance part="P+7" gate="G$1" x="38.1" y="66.04"/>
@@ -10227,17 +10225,11 @@ uC Vcc and GND</text>
 <instance part="P+22" gate="1" x="-215.9" y="101.6"/>
 <instance part="C2" gate="G$1" x="-304.8" y="142.24"/>
 <instance part="P+23" gate="VCC" x="0" y="198.12"/>
-<instance part="C6" gate="G$1" x="-27.94" y="66.04" rot="R180"/>
-<instance part="GND35" gate="1" x="-27.94" y="60.96"/>
+<instance part="C6" gate="G$1" x="-55.88" y="73.66" rot="R180"/>
+<instance part="GND35" gate="1" x="-55.88" y="68.58"/>
 <instance part="C7" gate="G$1" x="-10.16" y="81.28" rot="R270"/>
 <instance part="GND36" gate="1" x="-15.24" y="78.74"/>
-<instance part="R20" gate="G$1" x="-99.06" y="63.5" rot="R180"/>
-<instance part="+3V1" gate="G$1" x="-7.62" y="88.9"/>
-<instance part="R22" gate="G$1" x="-60.96" y="208.28" rot="R90"/>
-<instance part="R23" gate="G$1" x="-60.96" y="195.58" rot="R270"/>
-<instance part="GND38" gate="1" x="-60.96" y="187.96"/>
-<instance part="P+5" gate="1" x="-33.02" y="114.3"/>
-<instance part="R13" gate="G$1" x="-33.02" y="106.68" rot="R90"/>
+<instance part="R20" gate="G$1" x="-96.52" y="66.04" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -10264,20 +10256,19 @@ uC Vcc and GND</text>
 <junction x="-81.28" y="134.62"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="VBUS"/>
-<pinref part="P+22" gate="1" pin="+5V"/>
-<wire x1="-213.36" y1="99.06" x2="-215.9" y2="99.06" width="0.1524" layer="91"/>
+<pinref part="P+5" gate="1" pin="+5V"/>
+<pinref part="R13" gate="G$1" pin="1"/>
+<wire x1="-35.56" y1="111.76" x2="-35.56" y2="114.3" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="2CH_IDEAL_DIODES" gate="G$1" pin="INB"/>
-<wire x1="-7.62" y1="60.96" x2="-7.62" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="-7.62" y1="60.96" x2="-38.1" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="P+6" gate="1" pin="+5V"/>
-<wire x1="-7.62" y1="50.8" x2="-38.1" y2="50.8" width="0.1524" layer="91"/>
-<wire x1="-38.1" y1="50.8" x2="-38.1" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="P+5" gate="1" pin="+5V"/>
-<pinref part="R13" gate="G$1" pin="2"/>
+<pinref part="U$2" gate="G$1" pin="VBUS"/>
+<pinref part="P+22" gate="1" pin="+5V"/>
+<wire x1="-213.36" y1="99.06" x2="-215.9" y2="99.06" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -10416,13 +10407,13 @@ uC Vcc and GND</text>
 <pinref part="GND7" gate="1" pin="GND"/>
 </segment>
 <segment>
+<pinref part="2CH_IDEAL_DIODES" gate="G$1" pin="GND"/>
+<wire x1="-7.62" y1="66.04" x2="-12.7" y2="66.04" width="0.1524" layer="91"/>
 <pinref part="GND8" gate="1" pin="GND"/>
 <pinref part="2CH_IDEAL_DIODES" gate="G$1" pin="ENBB"/>
-<wire x1="-7.62" y1="63.5" x2="-20.32" y2="63.5" width="0.1524" layer="91"/>
-<pinref part="2CH_IDEAL_DIODES" gate="G$1" pin="GND"/>
-<wire x1="-7.62" y1="66.04" x2="-20.32" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="-20.32" y1="66.04" x2="-20.32" y2="63.5" width="0.1524" layer="91"/>
-<junction x="-20.32" y="63.5"/>
+<wire x1="-7.62" y1="63.5" x2="-12.7" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="-12.7" y1="63.5" x2="-12.7" y2="66.04" width="0.1524" layer="91"/>
+<junction x="-12.7" y="66.04"/>
 </segment>
 <segment>
 <pinref part="C3" gate="G$1" pin="1"/>
@@ -10500,10 +10491,6 @@ uC Vcc and GND</text>
 <segment>
 <pinref part="C7" gate="G$1" pin="2"/>
 <pinref part="GND36" gate="1" pin="GND"/>
-</segment>
-<segment>
-<pinref part="R23" gate="G$1" pin="2"/>
-<pinref part="GND38" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="VCC" class="0">
@@ -10847,22 +10834,20 @@ uC Vcc and GND</text>
 </net>
 <net name="+3V3" class="0">
 <segment>
+<pinref part="+3V6" gate="G$1" pin="+3V3"/>
+<pinref part="C3" gate="G$1" pin="2"/>
+<wire x1="-91.44" y1="63.5" x2="-91.44" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="U$6" gate="G$1" pin="VIN"/>
+<wire x1="-91.44" y1="66.04" x2="-91.44" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="-81.28" y1="63.5" x2="-91.44" y2="63.5" width="0.1524" layer="91"/>
+<junction x="-91.44" y="63.5"/>
+<pinref part="R20" gate="G$1" pin="1"/>
+<junction x="-91.44" y="66.04"/>
+</segment>
+<segment>
 <pinref part="U$8" gate="G$1" pin="2"/>
 <pinref part="+3V4" gate="G$1" pin="+3V3"/>
 <wire x1="-66.04" y1="177.8" x2="-66.04" y2="182.88" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="2CH_IDEAL_DIODES" gate="G$1" pin="INA"/>
-<wire x1="-7.62" y1="71.12" x2="-7.62" y2="81.28" width="0.1524" layer="91"/>
-<pinref part="C7" gate="G$1" pin="1"/>
-<wire x1="-7.62" y1="81.28" x2="-7.62" y2="86.36" width="0.1524" layer="91"/>
-<junction x="-7.62" y="81.28"/>
-<pinref part="+3V1" gate="G$1" pin="+3V3"/>
-</segment>
-<segment>
-<pinref part="+3V6" gate="G$1" pin="+3V3"/>
-<pinref part="R20" gate="G$1" pin="2"/>
-<wire x1="-104.14" y1="68.58" x2="-104.14" y2="63.5" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$3" class="0">
@@ -11028,12 +11013,14 @@ uC Vcc and GND</text>
 <label x="-152.4" y="63.5" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="R22" gate="G$1" pin="1"/>
-<pinref part="R23" gate="G$1" pin="1"/>
-<wire x1="-60.96" y1="203.2" x2="-60.96" y2="200.66" width="0.1524" layer="91"/>
-<wire x1="-60.96" y1="203.2" x2="-50.8" y2="203.2" width="0.1524" layer="91"/>
-<junction x="-60.96" y="203.2"/>
-<label x="-50.8" y="203.2" size="1.778" layer="95"/>
+<pinref part="U$4" gate="G$1" pin="STAT"/>
+<wire x1="-43.18" y1="116.84" x2="-40.64" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="-40.64" y1="116.84" x2="-40.64" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="-40.64" y1="101.6" x2="-35.56" y2="101.6" width="0.1524" layer="91"/>
+<pinref part="R13" gate="G$1" pin="2"/>
+<wire x1="-40.64" y1="101.6" x2="-40.64" y2="96.52" width="0.1524" layer="91"/>
+<junction x="-40.64" y="101.6"/>
+<label x="-40.64" y="96.52" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -11089,49 +11076,31 @@ uC Vcc and GND</text>
 <wire x1="-76.2" y1="157.48" x2="-68.58" y2="157.48" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$10" class="0">
-<segment>
-<pinref part="C3" gate="G$1" pin="2"/>
-<pinref part="U$6" gate="G$1" pin="VIN"/>
-<wire x1="-81.28" y1="63.5" x2="-93.98" y2="63.5" width="0.1524" layer="91"/>
-<junction x="-93.98" y="63.5"/>
-<pinref part="R20" gate="G$1" pin="1"/>
-<junction x="-93.98" y="63.5"/>
-<wire x1="-93.98" y1="63.5" x2="-93.98" y2="60.96" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="D_ENBL" class="0">
+<net name="N$9" class="0">
 <segment>
 <pinref part="U$6" gate="G$1" pin="RST"/>
-<wire x1="-81.28" y1="68.58" x2="-91.44" y2="68.58" width="0.1524" layer="91"/>
-<label x="-91.44" y="68.58" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="2CH_IDEAL_DIODES" gate="G$1" pin="ENBA"/>
-<wire x1="-7.62" y1="68.58" x2="-15.24" y2="68.58" width="0.1524" layer="91"/>
-<wire x1="-15.24" y1="68.58" x2="-15.24" y2="71.12" width="0.1524" layer="91"/>
-<wire x1="-15.24" y1="71.12" x2="-27.94" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="-81.28" y1="68.58" x2="-81.28" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="-81.28" y1="78.74" x2="-55.88" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="C6" gate="G$1" pin="2"/>
-<wire x1="-27.94" y1="71.12" x2="-40.64" y2="71.12" width="0.1524" layer="91"/>
-<junction x="-27.94" y="71.12"/>
-<label x="-43.18" y="71.12" size="1.778" layer="95"/>
+<junction x="-55.88" y="78.74"/>
+<wire x1="-43.18" y1="78.74" x2="-40.64" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="-40.64" y1="78.74" x2="-17.78" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="-17.78" y1="78.74" x2="-17.78" y2="68.58" width="0.1524" layer="91"/>
+<pinref part="2CH_IDEAL_DIODES" gate="G$1" pin="ENBA"/>
+<wire x1="-17.78" y1="68.58" x2="-7.62" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="-55.88" y1="78.74" x2="-43.18" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="BAT_STAT" class="0">
+<net name="N$10" class="0">
 <segment>
-<pinref part="U$4" gate="G$1" pin="STAT"/>
-<wire x1="-43.18" y1="116.84" x2="-38.1" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="-38.1" y1="116.84" x2="-38.1" y2="101.6" width="0.1524" layer="91"/>
-<wire x1="-38.1" y1="101.6" x2="-33.02" y2="101.6" width="0.1524" layer="91"/>
-<pinref part="R13" gate="G$1" pin="1"/>
-<junction x="-33.02" y="101.6"/>
-<wire x1="-33.02" y1="101.6" x2="-25.4" y2="101.6" width="0.1524" layer="91"/>
-<label x="-25.4" y="101.6" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="R22" gate="G$1" pin="2"/>
-<wire x1="-60.96" y1="215.9" x2="-60.96" y2="213.36" width="0.1524" layer="91"/>
-<label x="-60.96" y="215.9" size="1.778" layer="95"/>
+<pinref part="2CH_IDEAL_DIODES" gate="G$1" pin="INA"/>
+<wire x1="-7.62" y1="71.12" x2="-7.62" y2="81.28" width="0.1524" layer="91"/>
+<pinref part="C7" gate="G$1" pin="1"/>
+<wire x1="-7.62" y1="81.28" x2="-7.62" y2="86.36" width="0.1524" layer="91"/>
+<junction x="-7.62" y="81.28"/>
+<pinref part="R20" gate="G$1" pin="2"/>
+<wire x1="-101.6" y1="66.04" x2="-101.6" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="-101.6" y1="86.36" x2="-7.62" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

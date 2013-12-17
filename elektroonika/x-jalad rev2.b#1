@@ -2044,7 +2044,7 @@ for trimmer refence see : &lt;u&gt;www.electrospec-inc.com/cross_references/trim
 <element name="C1" library="rcl" package="C0603" value="4.7uF" x="53.7" y="10.25"/>
 <element name="2CH_IDEAL_DIODES" library="2_ch_ideal_diode" package="DFN10" value="LTC4413EDD-1" x="52.65" y="26.4" rot="R180"/>
 <element name="U$6" library="MCP101T-315I" package="SOT23-3" value="MCP101T-315I/TT" x="63.6" y="18.5" rot="R270"/>
-<element name="C3" library="eagle-ltspice" package="C0402" value="???" x="64.65" y="16.5" rot="R90">
+<element name="C3" library="eagle-ltspice" package="C0402" value="100nF" x="64.65" y="16.5" rot="R90">
 <attribute name="SPICEMODEL" value="NONE" x="64.65" y="16.5" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="64.65" y="16.5" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
@@ -2093,15 +2093,15 @@ for trimmer refence see : &lt;u&gt;www.electrospec-inc.com/cross_references/trim
 <attribute name="SPICEPREFIX" value="C" x="57.55" y="20.15" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="C7" library="rcl" package="C0603" value="4.7uF" x="51.3" y="22.3" rot="R180"/>
-<element name="R20" library="eagle-ltspice" package="R0402" value="???" x="63.06715625" y="15.41715625" rot="R270">
+<element name="R20" library="eagle-ltspice" package="R0402" value="400" x="63.06715625" y="15.41715625" rot="R270">
 <attribute name="SPICEMODEL" value="NONE" x="63.06715625" y="15.41715625" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="63.06715625" y="15.41715625" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="R22" library="eagle-ltspice" package="R0402" value="???" x="25.85" y="9.75">
+<element name="R22" library="eagle-ltspice" package="R0402" value="1k" x="25.85" y="9.75">
 <attribute name="SPICEMODEL" value="NONE" x="25.85" y="9.75" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="25.85" y="9.75" size="1.778" layer="27" display="off"/>
 </element>
-<element name="R23" library="eagle-ltspice" package="R0402" value="???" x="22.014646875" y="15.019671875" rot="MR135">
+<element name="R23" library="eagle-ltspice" package="R0402" value="1k" x="22.014646875" y="15.019671875" rot="MR135">
 <attribute name="SPICEMODEL" value="NONE" x="22.014646875" y="15.019671875" size="1.778" layer="28" rot="MR135" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="22.014646875" y="15.019671875" size="1.778" layer="28" rot="MR135" display="off"/>
 </element>
