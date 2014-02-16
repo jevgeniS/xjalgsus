@@ -168,7 +168,7 @@ double readLeftSensor(){
 }
 
 double readRightSensor(){
-  return getConductance(analogRead(FSR1)/1023.0)/conductanceCoef0;
+  return getConductance(analogRead(FSR1)/1023.0)/conductanceCoef1;
 }
 
 byte createFile(){
@@ -568,7 +568,7 @@ void loop()
         case 'S' :{
             getStringFromSerial(5,false);
             convertFloatAndStore(COEF1_ADDR);
-            conductanceCoef0=convertStoredToFloat(COEF1_ADDR);
+            conductanceCoef1=convertStoredToFloat(COEF1_ADDR);
             break;
         }
         
