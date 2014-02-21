@@ -68,6 +68,10 @@ volatile int period=15;
 volatile boolean needToMeasureVoltage=false;
 volatile boolean needToCheckPressure= false;
 
+volatile boolean needToStore=false;
+int storingPeriodInSeconds=900;
+volatile int storingPeriodCounterInSeconds=0;
+
 byte checkingSeconds=0;
 boolean leftSensor=true;
 
@@ -214,9 +218,10 @@ boolean isMeasurementNeeded(){
   if (partsOfSecond==F_WINDOW){
       partsOfSecond=0;
       secondsPassed++;
+      storingPeriodCounterInSeconds++;
       needToMeasureVoltage=true;
       needToCheckPressure=true;
-  
+      
   // 1 period passed
   if (secondsPassed==period){
       secondsPassed=0;
@@ -225,6 +230,13 @@ boolean isMeasurementNeeded(){
   if (secondsPassed==windowPeriod){
       measured=true;
     }
+  
+  if(storingPeriodCounterInSeconds>=storingPeriodInSeconds){
+      storingPeriodCounterInSeconds=0;
+      measured=true;
+      needToStore=true;
+    }
+  
   }
   
   if (secondsPassed<period){
@@ -598,33 +610,54 @@ void loop()
     initSQWInterrupt();
     digitalWrite(LED_PWR,HIGH);
     
+    float avrg0=0;
+    float avrg1=0;
+    
+    byte additionalMeasurement = 0;
+    
     while (1){
    
       if (measured){
-        Printer.clear();
-        getTimeStamp(false);
-        float avrg0=(actualNumberOfMeasurements0==0)? 0 : tempSum0/actualNumberOfMeasurements0;
-        float avrg1=(actualNumberOfMeasurements1==0)? 0 : tempSum1/actualNumberOfMeasurements1;
-          
+        
+        int measurementsNumber0=actualNumberOfMeasurements0 + additionalMeasurement;
+        int measurementsNumber1=actualNumberOfMeasurements1 + additionalMeasurement;
+        
+        avrg0= (measurementsNumber0 == 0) ? 0 : tempSum0 + avrg0 /actualNumberOfMeasurements0 + additionalMeasurement;
+        avrg1= (measurementsNumber1 == 0) ? 0 : tempSum1 + avrg1 /actualNumberOfMeasurements1 + additionalMeasurement;
+        additionalMeasurement=1;
+        
         tempSum0=0.0;
         tempSum1=0.0;
         actualNumberOfMeasurements0=0;
         actualNumberOfMeasurements1=0;
         
-        Printer+=" ";
-        loadSensorValuesToPrinter(avrg0,avrg1);
-        myFile=SD.open(fileName,FILE_WRITE);
-        if (myFile){
+        if (needToStore){
+          needToStore=false;
+          Printer.clear();
+          getTimeStamp(false);
+          Printer+=" ";
+          loadSensorValuesToPrinter(avrg0,avrg1);
           
-           myFile.println(Printer);
-           myFile.close();
+          avrg0=0;
+          avrg1=0;
+          additionalMeasurement=0;
+          
+          myFile=SD.open(fileName,FILE_WRITE);
+          if (myFile){
+          
+             myFile.println(Printer);
+            myFile.close();
            
+          }
         }
+        
         
         measured=false;
          
       
       }
+      
+      
          checkBatteryVoltage();
          checkPressure();
          sleep_mode();
