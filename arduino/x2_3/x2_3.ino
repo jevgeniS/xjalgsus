@@ -1,4 +1,3 @@
-
 #include "Wire.h"
 #include <avr/interrupt.h>
 #include <avr/power.h>
@@ -211,19 +210,27 @@ boolean isMeasurementNeeded(){
     interruptsOccured=0;
     partsOfSecond++;
   
+  // 1 second passed
   if (partsOfSecond==F_WINDOW){
       partsOfSecond=0;
       secondsPassed++;
       needToMeasureVoltage=true;
       needToCheckPressure=true;
-    
+  
+  // 1 period passed
   if (secondsPassed==period){
       secondsPassed=0;
    }
+   // 1 measurement window period passed
   if (secondsPassed==windowPeriod){
       measured=true;
     }
   }
+  
+  if (secondsPassed<period){
+    return true;
+  }
+  
   }
   return false;
 }
@@ -602,7 +609,7 @@ void loop()
         actualNumberOfMeasurements1=0;
         
         Printer+=" ";
-        loadSensorValuesToPrinter(readLeftSensor(),readRightSensor());
+        loadSensorValuesToPrinter(avrg0,avrg1);
         myFile=SD.open(fileName,FILE_WRITE);
         if (myFile){
           
