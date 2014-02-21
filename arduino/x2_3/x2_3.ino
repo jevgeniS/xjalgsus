@@ -466,11 +466,14 @@ void loop()
           myFile=SD.open(Printer,FILE_READ);
           if (myFile) {
             char temp;
+            Printer.clear();
             while (myFile.available()) {
               temp=myFile.read();
-              Serial.write(temp);
-             
+              Printer+=temp;
+              
               if (temp=='\n') {
+                Serial.print(Printer);  
+                Printer.clear();
                 while(Serial.read() != 'R');
                 
               }
