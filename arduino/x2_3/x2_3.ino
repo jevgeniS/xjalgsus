@@ -69,7 +69,7 @@ volatile boolean needToMeasureVoltage=false;
 volatile boolean needToCheckPressure= false;
 
 volatile boolean needToStore=false;
-int storingPeriodInSeconds=900;
+int storingPeriodInSeconds=30;
 volatile int storingPeriodCounterInSeconds=0;
 
 byte checkingSeconds=0;
@@ -231,7 +231,7 @@ boolean isMeasurementNeeded(){
       measured=true;
     }
   
-  if(storingPeriodCounterInSeconds>=storingPeriodInSeconds){
+  if(storingPeriodCounterInSeconds==storingPeriodInSeconds){
       storingPeriodCounterInSeconds=0;
       measured=true;
       needToStore=true;
@@ -239,7 +239,7 @@ boolean isMeasurementNeeded(){
   
   }
   
-  if (secondsPassed<period){
+  if (secondsPassed<=period){
     return true;
   }
   
@@ -618,12 +618,14 @@ void loop()
     while (1){
    
       if (measured){
-        
+        Printer.clear();
+        getTimeStamp(false);
+          
         int measurementsNumber0=actualNumberOfMeasurements0 + additionalMeasurement;
         int measurementsNumber1=actualNumberOfMeasurements1 + additionalMeasurement;
         
-        avrg0= (measurementsNumber0 == 0) ? 0 : tempSum0 + avrg0 /actualNumberOfMeasurements0 + additionalMeasurement;
-        avrg1= (measurementsNumber1 == 0) ? 0 : tempSum1 + avrg1 /actualNumberOfMeasurements1 + additionalMeasurement;
+        avrg0= (measurementsNumber0 == 0) ? 0 : (tempSum0 + avrg0) / (actualNumberOfMeasurements0 + additionalMeasurement);
+        avrg1= (measurementsNumber1 == 0) ? 0 : (tempSum1 + avrg1) / (actualNumberOfMeasurements1 + additionalMeasurement);
         additionalMeasurement=1;
         
         tempSum0=0.0;
@@ -633,8 +635,7 @@ void loop()
         
         if (needToStore){
           needToStore=false;
-          Printer.clear();
-          getTimeStamp(false);
+          
           Printer+=" ";
           loadSensorValuesToPrinter(avrg0,avrg1);
           
