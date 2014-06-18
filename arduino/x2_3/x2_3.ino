@@ -427,7 +427,7 @@ void loop()
     byte incomingByte;
    
     
-    Serial.begin(9600);
+    Serial.begin(115200);
     while (!Serial){
       processChargerStatus();
     }
@@ -457,16 +457,21 @@ void loop()
           
           getStringFromSerial(FILENAMELENGTH,false);
           myFile=SD.open(Printer,FILE_READ);
+          Printer.clear();
           if (myFile) {
             char temp;
             while (myFile.available()) {
+              
+              
               temp=myFile.read();
-              Serial.write(temp);
-             
+              //Serial.write(temp);
+              Printer+=temp;
               if (temp=='\n') {
+                Serial.print(Printer);
+                Printer.clear();
                 while(Serial.read() != 'R');
-                
               }
+              
             }
             myFile.close();
             
@@ -571,6 +576,22 @@ void loop()
             conductanceCoef1=convertStoredToFloat(COEF1_ADDR);
             break;
         }
+        case 'T' :{
+          myFile=SD.open(Printer,FILE_READ);
+          
+          if (myFile) {
+            char temp;
+            while (myFile.available()) {
+              temp=myFile.read();
+              //Serial.write(temp);
+             
+              
+            }
+            myFile.close();
+            
+          }
+            break;
+        }
         
         }
 
@@ -591,11 +612,13 @@ void loop()
     while (1){
    
       if (measured){
+
         Printer.clear();
         getTimeStamp(false);
         float avrg0=(actualNumberOfMeasurements0==0)? 0 : tempSum0/actualNumberOfMeasurements0;
         float avrg1=(actualNumberOfMeasurements1==0)? 0 : tempSum1/actualNumberOfMeasurements1;
           
+         
         tempSum0=0.0;
         tempSum1=0.0;
         actualNumberOfMeasurements0=0;
