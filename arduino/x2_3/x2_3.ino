@@ -1,4 +1,3 @@
-
 #include "Wire.h"
 #include <avr/interrupt.h>
 #include <avr/power.h>
@@ -68,6 +67,10 @@ volatile int period=15;
 
 volatile boolean needToMeasureVoltage=false;
 volatile boolean needToCheckPressure= false;
+
+volatile boolean needToStore=false;
+int storingPeriodInSeconds=30;
+volatile int storingPeriodCounterInSeconds=0;
 
 byte checkingSeconds=0;
 boolean leftSensor=true;
@@ -211,19 +214,35 @@ boolean isMeasurementNeeded(){
     interruptsOccured=0;
     partsOfSecond++;
   
+  // 1 second passed
   if (partsOfSecond==F_WINDOW){
       partsOfSecond=0;
       secondsPassed++;
+      storingPeriodCounterInSeconds++;
       needToMeasureVoltage=true;
       needToCheckPressure=true;
-    
+      
+  // 1 period passed
   if (secondsPassed==period){
       secondsPassed=0;
    }
+   // 1 measurement window period passed
   if (secondsPassed==windowPeriod){
       measured=true;
     }
+  
+  if(storingPeriodCounterInSeconds==storingPeriodInSeconds){
+      storingPeriodCounterInSeconds=0;
+      measured=true;
+      needToStore=true;
+    }
+  
   }
+  
+  if (secondsPassed<=period){
+    return true;
+  }
+  
   }
   return false;
 }
@@ -427,7 +446,7 @@ void loop()
     byte incomingByte;
    
     
-    Serial.begin(115200);
+    Serial.begin(9600);
     while (!Serial){
       processChargerStatus();
     }
@@ -457,21 +476,19 @@ void loop()
           
           getStringFromSerial(FILENAMELENGTH,false);
           myFile=SD.open(Printer,FILE_READ);
-          Printer.clear();
           if (myFile) {
             char temp;
+            Printer.clear();
             while (myFile.available()) {
-              
-              
               temp=myFile.read();
-              //Serial.write(temp);
               Printer+=temp;
+              
               if (temp=='\n') {
-                Serial.print(Printer);
+                Serial.print(Printer);  
                 Printer.clear();
                 while(Serial.read() != 'R');
+                
               }
-              
             }
             myFile.close();
             
@@ -576,22 +593,6 @@ void loop()
             conductanceCoef1=convertStoredToFloat(COEF1_ADDR);
             break;
         }
-        case 'T' :{
-          myFile=SD.open(Printer,FILE_READ);
-          
-          if (myFile) {
-            char temp;
-            while (myFile.available()) {
-              temp=myFile.read();
-              //Serial.write(temp);
-             
-              
-            }
-            myFile.close();
-            
-          }
-            break;
-        }
         
         }
 
@@ -609,35 +610,55 @@ void loop()
     initSQWInterrupt();
     digitalWrite(LED_PWR,HIGH);
     
+    float avrg0=0;
+    float avrg1=0;
+    
+    byte additionalMeasurement = 0;
+    
     while (1){
    
       if (measured){
-
         Printer.clear();
         getTimeStamp(false);
-        float avrg0=(actualNumberOfMeasurements0==0)? 0 : tempSum0/actualNumberOfMeasurements0;
-        float avrg1=(actualNumberOfMeasurements1==0)? 0 : tempSum1/actualNumberOfMeasurements1;
           
-         
+        int measurementsNumber0=actualNumberOfMeasurements0 + additionalMeasurement;
+        int measurementsNumber1=actualNumberOfMeasurements1 + additionalMeasurement;
+        
+        avrg0= (measurementsNumber0 == 0) ? 0 : (tempSum0 + avrg0) / (actualNumberOfMeasurements0 + additionalMeasurement);
+        avrg1= (measurementsNumber1 == 0) ? 0 : (tempSum1 + avrg1) / (actualNumberOfMeasurements1 + additionalMeasurement);
+        additionalMeasurement=1;
+        
         tempSum0=0.0;
         tempSum1=0.0;
         actualNumberOfMeasurements0=0;
         actualNumberOfMeasurements1=0;
         
-        Printer+=" ";
-        loadSensorValuesToPrinter(readLeftSensor(),readRightSensor());
-        myFile=SD.open(fileName,FILE_WRITE);
-        if (myFile){
+        if (needToStore){
+          needToStore=false;
           
-           myFile.println(Printer);
-           myFile.close();
+          Printer+=" ";
+          loadSensorValuesToPrinter(avrg0,avrg1);
+          
+          avrg0=0;
+          avrg1=0;
+          additionalMeasurement=0;
+          
+          myFile=SD.open(fileName,FILE_WRITE);
+          if (myFile){
+          
+             myFile.println(Printer);
+            myFile.close();
            
+          }
         }
+        
         
         measured=false;
          
       
       }
+      
+      
          checkBatteryVoltage();
          checkPressure();
          sleep_mode();
