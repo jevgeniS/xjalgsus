@@ -5,7 +5,7 @@
 #include <avr/io.h>
 #include <SD.h>
 #include <EEPROM.h>
-#include <GString.h>
+#include "GString.h"
 
 #define DS1307_I2C_ADDRESS 0x68
 #define LED_PWR 11
@@ -17,8 +17,8 @@
 #define FSR0 4
 #define FSR1 5
 #define STAT 8
-#define R 100000
-#define MULTIPLY 5000
+#define R 220000
+#define MULTIPLY 1000000
 
 #define VCC_MIN 3.1
 #define VCC_MIN_WARN 3.15
@@ -86,7 +86,21 @@ byte bcdToDec(byte val)
 {
   return ( (val/16*10) + (val%16) );
 }
+double readLeftSensor(){
+  //return getConductance(analogRead(FSR0)/1023.0)/conductanceCoef0;
+  return analogRead(FSR0);
+}
 
+double readRightSensor(){
+  //return getConductance(analogRead(FSR1)/1023.0)/conductanceCoef1;
+  return analogRead(FSR1);
+}
+double getConductance(double x){
+  if (x>=1.0) x=0.999999;
+  double res=(x/((1.0-x)*R))*MULTIPLY;
+  //return 1.4529*res + 0.424;
+  return res;
+}
 
 void setDateDs1307()          // 0-99
 {
@@ -166,13 +180,6 @@ float convertStoredToFloat(byte addr){
   return (float)res;
 }
 
-double readLeftSensor(){
-  return getConductance(analogRead(FSR0)/1023.0)/conductanceCoef0;
-}
-
-double readRightSensor(){
-  return getConductance(analogRead(FSR1)/1023.0)/conductanceCoef1;
-}
 
 byte createFile(){
   Printer.clear();
@@ -305,11 +312,7 @@ void getStringFromSerial(byte length,boolean settingTimestamp){
 }
 
 
-double getConductance(double x){
-  if (x==1) x=0.99999999;
-  double res=(x/((1.0-x)*R))*MULTIPLY;
-  return 1.4529*res + 0.424;
-}
+
 
 
 boolean cardSetup(void){
