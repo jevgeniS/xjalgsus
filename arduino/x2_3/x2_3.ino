@@ -88,12 +88,18 @@ byte bcdToDec(byte val)
 }
 double readLeftSensor(){
   //return getConductance(analogRead(FSR0)/1023.0)/conductanceCoef0;
-  return analogRead(FSR0);
+  //return analogRead(FSR0);
+  double s1 = (analogRead(FSR0)*1.064-17.12)/100.0;
+  if(s1 < 0) s1 = 0;
+  return s1;
 }
 
 double readRightSensor(){
   //return getConductance(analogRead(FSR1)/1023.0)/conductanceCoef1;
-  return analogRead(FSR1);
+  //return analogRead(FSR1);
+  double s2 = (analogRead(FSR1)*1.064-17.12)/100.0;
+  if(s2 < 0) s2 = 0;
+  return s2;
 }
 double getConductance(double x){
   if (x>=1.0) x=0.999999;
