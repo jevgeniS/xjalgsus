@@ -430,8 +430,8 @@ void setup()
     period = 10;
     windowPeriod=5;
   }
-  if (maxMeasurement>=4 || maxMeasurement<0) maxMeasurement =3.0;
-  if (minMeasurement>=4 || minMeasurement<0) minMeasurement =1.0;
+  if (maxMeasurement>=5 || maxMeasurement<=0) maxMeasurement =3.0;
+  if (minMeasurement>=5 || minMeasurement<=0) minMeasurement =1.0;
   if (conductanceCoef0<0.001 || conductanceCoef0>2) conductanceCoef0=1.0;
   if (conductanceCoef1<0.001 || conductanceCoef1>2) conductanceCoef1=1.0;
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
